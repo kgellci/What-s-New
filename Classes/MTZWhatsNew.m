@@ -43,28 +43,30 @@ static NSString * const MTZWhatsNewLastAppVersionKey = @"MTZWhatsNew.lastAppVers
 
 #pragma mark - Public API
 
-+ (void)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler
++ (BOOL)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler
 {
 	NSDictionary *newFeatures = [self whatsNew];
+    [self updateLastAppVersion];
 	
 	// Only call handler if there’s any new features.
 	if ([newFeatures count]) {
 		whatsNewHandler(newFeatures);
+        return YES;
 	}
-	
-	[self updateLastAppVersion];
+    return NO;
 }
 
-+ (void)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler sinceVersion:(NSString *)versionString
++ (BOOL)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler sinceVersion:(NSString *)versionString
 {
 	NSDictionary *newFeatures = [self whatsNewSinceVersion:versionString];
-	
+	[self updateLastAppVersion];
+    
 	// Only call handler if there’s any new features.
 	if ([newFeatures count]) {
 		whatsNewHandler(newFeatures);
+        return YES;
 	}
-	
-	[self updateLastAppVersion];
+    return NO;
 }
 
 + (void)reset

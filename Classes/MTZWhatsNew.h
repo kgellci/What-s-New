@@ -45,14 +45,16 @@ typedef void (^MTZWhatsNewHandler)(NSDictionary *whatsNew);
 
 ///	Show what’s new in this update, if anything.
 /// @param whatsNewHandler A block called to handle what’s new, if there’s anything new at all.
+/// @return Will return a boolean value indicating if there is anything new in this update
 /// @discussion Call this on every app launch to keep track of used versions.
-+ (void)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler;
++ (BOOL)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler;
 
 ///
 /// @param whatsNewHandler A block called to handle what’s new, if there’s anything new at all.
 /// @param versionString A string representing the version to show changes since.
+/// @return Will return a boolean value indicating if there is anything new since the given version
 /// @discussion Only use this if you wish to show changes since a specific version. Typically, only the @c handleWhatsNew: method is need. If wishing to only show the changes since the last version used, use @c handleWhatsNew: instead.
-+ (void)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler sinceVersion:(NSString *)versionString;
++ (BOOL)handleWhatsNew:(MTZWhatsNewHandler)whatsNewHandler sinceVersion:(NSString *)versionString;
 
 ///	Clears the last migration remembered by @c MTZWhatsNew. Causes migration to run from the beginning.
 + (void)reset;
